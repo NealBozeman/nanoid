@@ -1,4 +1,5 @@
 # Nano ID
+Changes to make this work using require() with NodeJS
 
 <img src="https://ai.github.io/nanoid/logo.svg" align="right"
      alt="Nano ID logo by Anton Lovchikov" width="180" height="94">
