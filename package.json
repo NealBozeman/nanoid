@@ -14,7 +14,6 @@
     "test": "c8 pnpm unit && eslint . && pnpm clean && size-limit",
     "start": "vite test/demo/ --open"
   },
-  "type": "module",
   "engines": {
     "node": "^14 || ^16 || >=18"
   },
