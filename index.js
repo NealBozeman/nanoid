@@ -1,8 +1,6 @@
-import { randomFillSync } from 'crypto'
+const { randomFillSync } = require('crypto')
 
-import { urlAlphabet } from './url-alphabet/index.js'
-
-export { urlAlphabet }
+export let urlAlphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 // It is best to make fewer, larger requests to the crypto module to
 // avoid system call overhead. So, random numbers are generated in a
