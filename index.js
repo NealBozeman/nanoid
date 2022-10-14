@@ -1,6 +1,7 @@
 const { randomFillSync } = require('crypto')
 
-export let urlAlphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+const urlAlphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+exports.urlAlphabet = urlAlphabet
 
 // It is best to make fewer, larger requests to the crypto module to
 // avoid system call overhead. So, random numbers are generated in a
@@ -22,13 +23,14 @@ let fillPool = bytes => {
   poolOffset += bytes
 }
 
-export let random = bytes => {
+const random = bytes => {
   // `-=` convert `bytes` to number to prevent `valueOf` abusing
   fillPool((bytes -= 0))
   return pool.subarray(poolOffset - bytes, poolOffset)
 }
+exports.random = random
 
-export let customRandom = (alphabet, defaultSize, getRandom) => {
+const customRandom = (alphabet, defaultSize, getRandom = random) => {
   // First, a bitmask is necessary to generate the ID. The bitmask makes bytes
   // values closer to the alphabet size. The bitmask calculates the closest
   // `2^31 - 1` number, which exceeds the alphabet size.
@@ -62,11 +64,13 @@ export let customRandom = (alphabet, defaultSize, getRandom) => {
     }
   }
 }
+exports.customRandom	= customRandom
 
-export let customAlphabet = (alphabet, size = 21) =>
+const customAlphabet = (alphabet, size = 21) =>
   customRandom(alphabet, size, random)
+		exports.customAlphabet =	customAlphabet
 
-export let nanoid = (size = 21) => {
+const nanoid = (size = 21) => {
   // `-=` convert `size` to number to prevent `valueOf` abusing
   fillPool((size -= 0))
   let id = ''
@@ -81,3 +85,4 @@ export let nanoid = (size = 21) => {
   }
   return id
 }
+exports.nanoid	= nanoid
